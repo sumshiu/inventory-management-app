@@ -24,6 +24,7 @@ export default function Home() {
   const [inventory, setInventory] = useState([]);
   const [open, setOpen] = useState(false);
   const [itemName, setItemName] = useState("");
+  const [itemQuantity, setItemQuantity] = useState(1);
 
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, "inventory"));
@@ -115,6 +116,16 @@ export default function Home() {
                 setItemName(e.target.value);
               }}
             />
+            <TextField
+              label="Enter quantity"
+              type="number"
+              value={itemQuantity}
+              onChange={(e) => setItemQuantity(parseInt(e.target.value))}
+              variant="outlined"
+              margin="normal"
+              inputProps={{ min: "1" }}
+            />
+
             <Button
               onClick={() => {
                 addItem(itemName);

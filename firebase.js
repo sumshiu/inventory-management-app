@@ -9,13 +9,13 @@ import { getFirestore } from "firebase/firestore";
 require("dotenv").config();
 
 const firebaseConfig = {
-  apiKey: process.env.firebaseKey,
-  authDomain: "pantry-tracker-app-57956.firebaseapp.com",
-  projectId: "pantry-tracker-app-57956",
-  storageBucket: "pantry-tracker-app-57956.appspot.com",
-  messagingSenderId: "490697093020",
-  appId: "1:490697093020:web:11cf1fca6d6e40c94ee259",
-  measurementId: "G-HHCCFZ16HE",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
