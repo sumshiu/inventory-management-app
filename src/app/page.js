@@ -45,7 +45,7 @@ export default function Home() {
 
     if (docSnap.exists()) {
       const { quantity } = docSnap.data();
-      await setDoc(docRef, { quantity: itemQuantity + 1 });
+      await setDoc(docRef, { quantity: quantity + itemQuantity });
     } else {
       await setDoc(docRef, { quantity: itemQuantity });
     }
