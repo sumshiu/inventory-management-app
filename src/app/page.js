@@ -131,6 +131,7 @@ export default function Home() {
                 addItem(itemName, itemQuantity);
                 handleClose();
                 setItemName("");
+                setItemQuantity(1);
               }}
             >
               Add
