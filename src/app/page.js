@@ -39,15 +39,15 @@ export default function Home() {
     setInventory(inventoryList);
   };
 
-  const addItem = async (item) => {
+  const addItem = async (item, itemQuantity) => {
     const docRef = doc(collection(firestore, "inventory"), item);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const { quantity } = docSnap.data();
-      await setDoc(docRef, { quantity: quantity + 1 });
+      await setDoc(docRef, { quantity: itemQuantity + 1 });
     } else {
-      await setDoc(docRef, { quantity: 1 });
+      await setDoc(docRef, { quantity: itemQuantity });
     }
 
     await updateInventory();
@@ -128,7 +128,7 @@ export default function Home() {
 
             <Button
               onClick={() => {
-                addItem(itemName);
+                addItem(itemName, itemQuantity);
                 handleClose();
                 setItemName("");
               }}
