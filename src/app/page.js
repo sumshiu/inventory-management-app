@@ -25,6 +25,8 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [itemName, setItemName] = useState("");
   const [itemQuantity, setItemQuantity] = useState(1);
+  const [search, setSearch] = useState("");
+  const [list, setList] = useState([]);
 
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, "inventory"));
@@ -68,6 +70,14 @@ export default function Home() {
 
     await updateInventory();
   };
+
+  const handleSearch = async (e) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredItems = inventory.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   useEffect(() => {
     updateInventory();
@@ -125,7 +135,6 @@ export default function Home() {
               margin="normal"
               inputProps={{ min: "1" }}
             />
-
             <Button
               onClick={() => {
                 addItem(itemName, itemQuantity);
@@ -139,14 +148,11 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Button
-        variant="contained"
-        onClick={() => {
-          handleOpen();
-        }}
-      >
+
+      <Button variant="contained" onClick={handleOpen}>
         Add New Item
       </Button>
+
       <Box border="1px solid #333">
         <Box
           width="800px"
@@ -160,8 +166,23 @@ export default function Home() {
             Inventory Items
           </Typography>
         </Box>
+        <Box
+          padding="10px"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          width="800px"
+        >
+          <TextField
+            variant="outlined"
+            fullWidth
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search pantry items..."
+          />
+        </Box>
         <Stack width="800px" height="300px" spacing={2} overflow="auto">
-          {inventory.map(({ name, quantity }) => (
+          {filteredItems.map(({ name, quantity }) => (
             <Box
               key={name}
               width="100%"
